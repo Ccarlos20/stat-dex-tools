@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import styles from "@/styles/estadisticas.module.css";
 import { useStorage } from "./hooks/useStorage";
 import { useNaturaleza } from "./hooks/useNaturaleza";
@@ -12,30 +11,6 @@ export default function EstadisticasTable() {
     const { valores, setValor } = useStorage();
     const { setNaturaleza, modificadores } = useNaturaleza(valores.naturaleza);
     const { calcular, isDisabled } = useCalculo(valores, setValor, modificadores);
-
-    // Inicializar valores por defecto si aún no existen en localStorage
-    useEffect(() => {
-        STATS.forEach(stat => {
-            const defaults = {
-                [`nivel-${stat}`]: 1,
-                [`base-${stat}`]: 1,
-                [`iv-${stat}`]: 0,
-                [`ev-${stat}`]: 0,
-            };
-            Object.entries(defaults).forEach(([key, value]) => {
-                if (valores[key] === undefined) {
-                    setValor(key, value);
-                }
-            });
-        });
-
-        if (valores.calculo === undefined) setValor("calculo", "nivel");
-        if (valores.nivel === undefined) setValor("nivel", 50);
-        if (valores.naturaleza === undefined) {
-            setValor("naturaleza", "neutral-neutral-0");
-            setNaturaleza("neutral-neutral-0");
-        }
-    }, [valores, setValor, setNaturaleza]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -60,7 +35,7 @@ export default function EstadisticasTable() {
                     <label>Calcular:</label>
                     <select
                         className={styles.select}
-                        value={valores.calculo || "nivel"}
+                        value={valores.calculo}
                         required
                         onChange={(e) => setValor("calculo", e.target.value)}
                     >
@@ -76,7 +51,7 @@ export default function EstadisticasTable() {
                     <input
                         type="number"
                         className={styles.input}
-                        value={valores.nivel || 50}
+                        value={valores.nivel}
                         min={1}
                         required
                         onChange={(e) => setValor("nivel", e.target.value)}
@@ -87,7 +62,7 @@ export default function EstadisticasTable() {
                     <label>Naturaleza</label>
                     <select
                         className={styles.select}
-                        value={valores.naturaleza || "neutral-neutral-0"}
+                        value={valores.naturaleza}
                         required
                         onChange={(e) => {
                             setValor("naturaleza", e.target.value);
@@ -146,7 +121,7 @@ export default function EstadisticasTable() {
                             >
                                 <th>{stat}</th>
                                 {["nivel", "base", "iv", "ev"].map((tipo) => {
-                                    let min = tipo === "iv" ? 0 : 1;
+                                    let min = (tipo === "iv" || tipo === "ev") ? 0 : 1;
                                     let max = tipo === "iv" ? 31 : tipo === "ev" ? 252 : undefined;
 
                                     return (
@@ -154,7 +129,7 @@ export default function EstadisticasTable() {
                                             <input
                                                 type="number"
                                                 className={styles.input}
-                                                value={valores[`${tipo}-${stat}`] ?? min}
+                                                value={valores[`${tipo}-${stat}`]}
                                                 min={min}
                                                 max={max}
                                                 required
