@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import styles from "@/styles/estadisticas.module.css";
 import { useStorage } from "./hooks/useStorage";
 import { useNaturaleza } from "./hooks/useNaturaleza";
@@ -12,10 +13,33 @@ export default function EstadisticasTable() {
     const { setNaturaleza, modificadores } = useNaturaleza(valores.naturaleza);
     const { calcular, isDisabled } = useCalculo(valores, setValor, modificadores);
 
+    // Inicializar valores por defecto si aún no existen en localStorage
+    useEffect(() => {
+        STATS.forEach(stat => {
+            const defaults = {
+                [`nivel-${stat}`]: 1,
+                [`base-${stat}`]: 1,
+                [`iv-${stat}`]: 0,
+                [`ev-${stat}`]: 0,
+            };
+            Object.entries(defaults).forEach(([key, value]) => {
+                if (valores[key] === undefined) {
+                    setValor(key, value);
+                }
+            });
+        });
+
+        if (valores.calculo === undefined) setValor("calculo", "nivel");
+        if (valores.nivel === undefined) setValor("nivel", 50);
+        if (valores.naturaleza === undefined) {
+            setValor("naturaleza", "neutral-neutral-0");
+            setNaturaleza("neutral-neutral-0");
+        }
+    }, [valores, setValor, setNaturaleza]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validación: no permitir campos vacíos
         for (const stat of STATS) {
             for (const tipo of ["nivel", "base", "iv", "ev"]) {
                 const value = valores[`${tipo}-${stat}`];
@@ -30,7 +54,6 @@ export default function EstadisticasTable() {
     };
 
     return (
-
         <form onSubmit={handleSubmit}>
             <section className={styles.controls}>
                 <div className={styles.control}>
@@ -99,6 +122,7 @@ export default function EstadisticasTable() {
                     </select>
                 </div>
             </section>
+
             <div className={styles.statsContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -130,7 +154,7 @@ export default function EstadisticasTable() {
                                             <input
                                                 type="number"
                                                 className={styles.input}
-                                                value={valores[`${tipo}-${stat}`] || min}
+                                                value={valores[`${tipo}-${stat}`] ?? min}
                                                 min={min}
                                                 max={max}
                                                 required
@@ -153,13 +177,13 @@ export default function EstadisticasTable() {
                         ))}
                     </tbody>
                 </table>
-
             </div>
+
             <div className={styles.actions}>
                 <button type="submit" className={styles.button}>
                     Calcular
                 </button>
             </div>
-        </form >
+        </form>
     );
 }
