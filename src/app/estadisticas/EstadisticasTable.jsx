@@ -9,7 +9,7 @@ const STATS = ["Salud", "Ataque", "Defensa", "At. Esp.", "Def. Esp.", "Velocidad
 
 export default function EstadisticasTable() {
     const { valores, setValor } = useStorage();
-    const { setNaturaleza, modificadores } = useNaturaleza(valores.naturaleza);
+    const { setNaturaleza, modificadores } = useNaturaleza(valores.naturaleza ?? "neutral-neutral-0");
     const { calcular, isDisabled } = useCalculo(valores, setValor, modificadores);
 
     const handleSubmit = (e) => {
@@ -35,7 +35,7 @@ export default function EstadisticasTable() {
                     <label>Calcular:</label>
                     <select
                         className={styles.select}
-                        value={valores.calculo}
+                        value={valores.calculo ?? "nivel"}
                         required
                         onChange={(e) => setValor("calculo", e.target.value)}
                     >
@@ -51,7 +51,7 @@ export default function EstadisticasTable() {
                     <input
                         type="number"
                         className={styles.input}
-                        value={valores.nivel}
+                        value={valores.nivel ?? 50}
                         min={1}
                         required
                         onChange={(e) => setValor("nivel", e.target.value)}
@@ -62,7 +62,7 @@ export default function EstadisticasTable() {
                     <label>Naturaleza</label>
                     <select
                         className={styles.select}
-                        value={valores.naturaleza}
+                        value={valores.naturaleza ?? "neutral-neutral-0"}
                         required
                         onChange={(e) => {
                             setValor("naturaleza", e.target.value);
@@ -129,7 +129,7 @@ export default function EstadisticasTable() {
                                             <input
                                                 type="number"
                                                 className={styles.input}
-                                                value={valores[`${tipo}-${stat}`]}
+                                                value={valores[`${tipo}-${stat}`] ?? min}
                                                 min={min}
                                                 max={max}
                                                 required
