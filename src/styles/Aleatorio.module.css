@@ -1,0 +1,73 @@
+/* Aleatorio.module.css */
+
+.contenedor {
+    text-align: center;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+}
+
+.titulo {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabla th,
+.tabla td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.tabla th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.inputNumero,
+.inputReadonly {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+
+.botonGenerar {
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.botonGenerar:hover {
+    background-color: #0b5ed7;
+}
+
+.btnRegresar {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.btnRegresar:hover {
+    background-color: #5a6268;
+}
