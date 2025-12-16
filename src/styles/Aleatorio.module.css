@@ -17,6 +17,13 @@
     color: #333;
 }
 
+.statsContainer {
+    overflow-y: auto;
+    /* scroll vertical si excede la altura */
+    overflow-x: auto;
+    /* scroll horizontal si la tabla es más ancha */
+}
+
 .tabla {
     width: 100%;
     border-collapse: collapse;

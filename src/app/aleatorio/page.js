@@ -45,45 +45,47 @@ export default function AleatorioPage() {
                 <div className={styles.contenedor}>
                     <h2 className={styles.titulo}>Generador Aleatorio</h2>
                     <form onSubmit={generar}>
-                        <table className={styles.tabla}>
-                            <thead>
-                                <tr>
-                                    <th>Ingresar Número</th>
-                                    <th>Número Obtenido</th>
-                                    <th>Número Transformado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input
-                                            type="number"
-                                            min="2"
-                                            value={n}
-                                            onChange={(e) => setN(e.target.value)}
-                                            className={styles.inputNumero}
-                                            required
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            value={numeroObtenido}
-                                            readOnly
-                                            className={styles.inputReadonly}
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            value={numeroTransformado}
-                                            readOnly
-                                            className={styles.inputReadonly}
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className={styles.statsContainer}>
+                            <table className={styles.tabla}>
+                                <thead>
+                                    <tr>
+                                        <th>Ingresar Número</th>
+                                        <th>Número Obtenido</th>
+                                        <th>Número Transformado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type="number"
+                                                min="2"
+                                                value={n}
+                                                onChange={(e) => setN(e.target.value)}
+                                                className={styles.inputNumero}
+                                                required
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                value={numeroObtenido}
+                                                readOnly
+                                                className={styles.inputReadonly}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                value={numeroTransformado}
+                                                readOnly
+                                                className={styles.inputReadonly}
+                                            />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <button type="submit" className={styles.botonGenerar}>
                             Generar número
                         </button>

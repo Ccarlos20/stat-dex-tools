@@ -30,6 +30,7 @@ export default function EstadisticasTable() {
     };
 
     return (
+
         <form onSubmit={handleSubmit}>
             <section className={styles.controls}>
                 <div className={styles.control}>
@@ -98,66 +99,67 @@ export default function EstadisticasTable() {
                     </select>
                 </div>
             </section>
-
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Stat</th>
-                        <th>Final</th>
-                        <th>Base</th>
-                        <th>IV</th>
-                        <th>EV</th>
-                        <th>Naturaleza</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {STATS.map((stat) => (
-                        <tr
-                            key={stat}
-                            className={
-                                `${modificadores.buff === stat ? styles.buffed :
-                                    modificadores.nerf === stat ? styles.nerfed : ""}`
-                            }
-                        >
-                            <th>{stat}</th>
-                            {["nivel", "base", "iv", "ev"].map((tipo) => {
-                                let min = tipo === "iv" ? 0 : 1;
-                                let max = tipo === "iv" ? 31 : tipo === "ev" ? 252 : undefined;
-
-                                return (
-                                    <td key={tipo}>
-                                        <input
-                                            type="number"
-                                            className={styles.input}
-                                            value={valores[`${tipo}-${stat}`] || min}
-                                            min={min}
-                                            max={max}
-                                            required
-                                            disabled={isDisabled(tipo)}
-                                            onChange={(e) =>
-                                                setValor(`${tipo}-${stat}`, e.target.value)
-                                            }
-                                        />
-                                    </td>
-                                );
-                            })}
-                            <td className={
-                                `${styles.naturalezaCell}
-                                ${modificadores.buff === stat ? styles.buff :
-                                    modificadores.nerf === stat ? styles.nerf : ""}`}>
-                                {modificadores.buff === stat && "▲▲▲"}
-                                {modificadores.nerf === stat && "▼▼▼"}
-                            </td>
+            <div className={styles.statsContainer}>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Stat</th>
+                            <th>Final</th>
+                            <th>Base</th>
+                            <th>IV</th>
+                            <th>EV</th>
+                            <th>Naturaleza</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {STATS.map((stat) => (
+                            <tr
+                                key={stat}
+                                className={
+                                    `${modificadores.buff === stat ? styles.buffed :
+                                        modificadores.nerf === stat ? styles.nerfed : ""}`
+                                }
+                            >
+                                <th>{stat}</th>
+                                {["nivel", "base", "iv", "ev"].map((tipo) => {
+                                    let min = tipo === "iv" ? 0 : 1;
+                                    let max = tipo === "iv" ? 31 : tipo === "ev" ? 252 : undefined;
 
+                                    return (
+                                        <td key={tipo}>
+                                            <input
+                                                type="number"
+                                                className={styles.input}
+                                                value={valores[`${tipo}-${stat}`] || min}
+                                                min={min}
+                                                max={max}
+                                                required
+                                                disabled={isDisabled(tipo)}
+                                                onChange={(e) =>
+                                                    setValor(`${tipo}-${stat}`, e.target.value)
+                                                }
+                                            />
+                                        </td>
+                                    );
+                                })}
+                                <td className={
+                                    `${styles.naturalezaCell}
+                                ${modificadores.buff === stat ? styles.buff :
+                                        modificadores.nerf === stat ? styles.nerf : ""}`}>
+                                    {modificadores.buff === stat && "▲▲▲"}
+                                    {modificadores.nerf === stat && "▼▼▼"}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+            </div>
             <div className={styles.actions}>
                 <button type="submit" className={styles.button}>
                     Calcular
                 </button>
             </div>
-        </form>
+        </form >
     );
 }

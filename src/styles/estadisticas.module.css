@@ -1,5 +1,16 @@
-/* ===== Título ===== */
+/* ===== Contenedor principal ===== */
+.statsContainer {
+    overflow-y: auto;
+    /* scroll vertical si excede la altura */
+    overflow-x: auto;
+    /* scroll horizontal si la tabla es más ancha */
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
 
+/* ===== Título ===== */
 .title {
     text-align: center;
     font-weight: 600;
@@ -7,7 +18,6 @@
 }
 
 /* ===== Sección superior ===== */
-
 .controls {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -26,21 +36,31 @@
 }
 
 /* ===== Inputs ===== */
-
 .input,
 .select {
     padding: 0.4rem 0.6rem;
     font-size: 0.95rem;
     border: 1px solid #ced4da;
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input:disabled,
+.select:disabled {
+    background-color: #d5d8db;
+    cursor: not-allowed;
+    opacity: 0.75;
 }
 
 /* ===== Tabla ===== */
-
 .table {
-    background-color: white;
     width: 100%;
+    min-width: 600px;
+    /* asegura que la tabla sea más ancha que el contenedor si hay scroll */
+    background-color: white;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .table th,
@@ -49,6 +69,9 @@
     padding: 0.4rem;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap;
+    /* evita que el contenido se rompa en varias líneas */
+    overflow: hidden;
 }
 
 .table thead th {
@@ -57,7 +80,6 @@
 }
 
 /* ===== Naturaleza ===== */
-
 .buffed {
     background-color: #d4edda;
 }
@@ -79,7 +101,6 @@
 }
 
 /* ===== Acciones ===== */
-
 .actions {
     text-align: center;
     margin-top: 1.5rem;
@@ -98,11 +119,4 @@
 
 .button:hover {
     background-color: #0b5ed7;
-}
-
-.input:disabled,
-.select:disabled {
-    background-color: #d5d8db;
-    cursor: not-allowed;
-    opacity: 0.75;
 }
